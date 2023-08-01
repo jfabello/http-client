@@ -106,9 +106,7 @@ exports.errors = lodash.merge(httpClientErrors, systemErrors, commonErrors);
 delete exports.errors.createErrorFromSystemErrorCode;
 
 // Prepares logToConsole
-const { getLogToConsoleInstance } = require("@jfabello/logtoconsole");
-const logToConsole = getLogToConsoleInstance();
-logToConsole.setLogLevel(logToConsole.DEBUG);
+const logToConsole = require("@jfabello/logtoconsole").getLogToConsoleInstance(4);
 
 /**
  * @function makeHttpRequest
@@ -175,7 +173,7 @@ exports.makeHttpRequest = function (url, method = "GET", options = {}) {
 				if (typeof options[property] !== "string" && typeof options[property] !== "object") {
 					throw new ERROR_HTTP_REQUEST_BODY_TYPE_INVALID();
 				}
-				if (options[property] instanceof Buffer === false) {
+				if (typeof options[property] === "object" && options[property] instanceof Buffer === false) {
 					throw new ERROR_HTTP_REQUEST_BODY_TYPE_INVALID();
 				}
 				break;
