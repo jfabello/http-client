@@ -1,0 +1,36 @@
+{
+	"name": "@jfabello/httpclient",
+	"version": "1.0.0",
+	"description": "Promise-based HTTP client.",
+	"license": "GPL-3.0-only",
+	"main": "httpclient.js",
+	"author": {
+		"name": "Juan F. Abello",
+		"email": "juan@jfabello.com"
+	},
+	"keywords": [
+		"http",
+		"client",
+		"promises",
+		"async"
+	],
+	"scripts": {
+		"test": "jest --watch",
+		"http-test-server": "nodemon ./http-test-server.js"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"dependencies": {
+		"@jfabello/logtoconsole": "github:jfabello/log-to-console",
+		"@jfabello/simpletimer": "github:jfabello/simple-timer",
+		"@jfabello/commonerrors": "github:jfabello/common-errors",
+		"@jfabello/systemerrors": "github:jfabello/system-errors",
+		"lodash": "^4.0",
+		"chalk": "^4.0"
+	},
+		"devDependencies": {
+		"jest": "^29.0",
+		"nodemon": "^3.0"
+	}
+}
