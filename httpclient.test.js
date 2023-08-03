@@ -6,6 +6,7 @@
  */
 
 // Module imports
+const { expect, test } = require("@jest/globals");
 const simpleTimer = require("@jfabello/simpletimer");
 const httpClient = require("./httpclient.js");
 

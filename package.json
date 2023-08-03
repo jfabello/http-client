@@ -1,6 +1,6 @@
 {
 	"name": "@jfabello/httpclient",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Promise-based HTTP client.",
 	"license": "GPL-3.0-only",
 	"main": "httpclient.js",
@@ -29,8 +29,9 @@
 		"lodash": "^4.0",
 		"chalk": "^4.0"
 	},
-		"devDependencies": {
+	"devDependencies": {
 		"jest": "^29.0",
+		"@jest/globals": "^29.0",
 		"nodemon": "^3.0"
 	}
 }
