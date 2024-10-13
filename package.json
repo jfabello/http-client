@@ -1,12 +1,13 @@
 {
 	"name": "@jfabello/http-client",
 	"version": "1.0.0",
-	"description": "Promise-based HTTP client.",
+	"description": "Promise-based HTTP client for Node.js.",
 	"keywords": [
 		"http",
 		"client",
 		"promises",
-		"async"
+		"async",
+		"node"
 	],
 	"license": "GPL-3.0-only",
 	"author": {
