@@ -5,6 +5,9 @@
  * @author Juan F. Abello <juan@jfabello.com>
  */
 
+// TODO LIST
+// TODO Remove the dependency on the "content-type" module.
+
 // Sets strict mode
 "use strict";
 
@@ -246,7 +249,7 @@ class HTTPClient {
 
 	/**
 	 * @description Executes the HTTP request. If the request is in the REQUESTING state, it returns the existing promise.
-	 * @returns {Promise} A promise that fulfills to an HTTP Response object if the HTTP request is performed succesfully, or rejects to an error if the HTTP request fails.
+	 * @returns {Promise<HTTPResponse>} A promise that fulfills to an HTTP Response object if the HTTP request is performed succesfully, or rejects to an error if the HTTP request fails.
 	 * @throws {ERROR_HTTP_REQUEST_MAKE_REQUEST_UNAVAILABLE} If the HTTP client is not in a state that allows making HTTP requests.
 	 * @throws {ERROR_HTTP_REQUEST_TIMED_OUT} If the HTTP request times out while making the request.
 	 * @throws {ERROR_HTTP_REQUEST_BODY_TYPE_INVALID} If the HTTP request body type is not supported
