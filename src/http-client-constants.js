@@ -10,7 +10,7 @@
 
 const constants = {};
 
-constants.HTTP_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH"];
+constants.HTTP_METHODS = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD"];
 constants.BODY_ENCODINGS = [
 	"utf8",
 	"utf-8",
