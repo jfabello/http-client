@@ -168,7 +168,7 @@ Creates a new instance of the HTTP Client.
 
 - `url`: The URL of the HTTP request.
 - `options`: An optional object that contains the HTTP client options.
-	- `method`: An optional string that specifies the HTTP request method. Can be `GET`, `POST`, `PUT`, `DELETE` or `PATCH`. The default is `GET`.
+	- `method`: An optional string that specifies the HTTP request method. Can be `GET`, `POST`, `PUT`, `DELETE`, `PATCH` or `HEAD`. The default is `GET`.
 	- `headers`: An optional key-value pairs object that specifies the HTTP request headers.
 	- `timeout`: An optional positive integer that specifies the HTTP request timeout in milliseconds. The default is 60 seconds.
 	- `body`: An optional string, serializable object or Buffer object that specifies the HTTP request body.
