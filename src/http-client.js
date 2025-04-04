@@ -436,7 +436,7 @@ class HTTPClient {
 	 */
 	#sendRequestBody() {
 		// State variables
-		let errorOcurred = false;
+		let errorOccurred = false;
 
 		// Starts the request timer
 		this.#requestTimer = setTimeout(() => {
@@ -445,7 +445,7 @@ class HTTPClient {
 
 		// Processes the HTTP request "error" event
 		this.#clientRequest.once("error", (error) => {
-			errorOcurred = true;
+			errorOccurred = true;
 		});
 
 		// Writes the request body
@@ -481,7 +481,7 @@ class HTTPClient {
 						let requestBodyChunkSize = null;
 						let requestBodyChunk = null;
 
-						if (errorOcurred === true) return;
+						if (errorOccurred === true) return;
 
 						// Calculates the HTTP request body chunk size
 						if (requestBodyBufferSize - requestBodyBufferPointer < maxRequestChunkSize) {
