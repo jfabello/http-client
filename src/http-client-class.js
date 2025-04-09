@@ -348,11 +348,7 @@ class HTTPClient {
 
 					// Sets the HTTP response property and tears down the client if the response body is empty
 					if (responseBodyBufferSize === 0) {
-						this.#httpResponse = new HTTPResponse({
-							headers: response.headers,
-							statusCode: response.statusCode,
-							statusMessage: response.statusMessage
-						});
+						this.#httpResponse = new HTTPResponse(response.headers, response.statusCode, response.statusMessage);
 						this.#teardown();
 						return;
 					}
@@ -367,12 +363,7 @@ class HTTPClient {
 
 					// Sets the HTTP response property and tears down the client if the automatic parsing of a JSON HTTP response is disabled, the response's content type is not application/json
 					if (this.#autoJSONResponseParse === false || responseContentType !== "application/json" || constants.BODY_ENCODINGS.includes(responseContentTypeCharset) === false) {
-						this.#httpResponse = new HTTPResponse({
-							headers: response.headers,
-							statusCode: response.statusCode,
-							statusMessage: response.statusMessage,
-							body: responseBodyBuffer
-						});
+						this.#httpResponse = new HTTPResponse(response.headers, response.statusCode, response.statusMessage, responseBodyBuffer);
 						this.#teardown();
 						return;
 					}
@@ -387,12 +378,7 @@ class HTTPClient {
 					}
 
 					// Sets the HTTP response property and tears down the client
-					this.#httpResponse = new HTTPResponse({
-						headers: response.headers,
-						statusCode: response.statusCode,
-						statusMessage: response.statusMessage,
-						body: responseBodyJSON
-					});
+					this.#httpResponse = new HTTPResponse(response.headers, response.statusCode, response.statusMessage, responseBodyJSON);
 					this.#teardown();
 					return;
 				});

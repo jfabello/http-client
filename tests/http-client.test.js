@@ -92,38 +92,53 @@ beforeAll(async () => {
 });
 
 describe("HTTP response tests", () => {
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when no arguments are passed to its constructor", () => {
+	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when no arguments are passed to its constructor", () => {
 		expect.assertions(1);
 		try {
+			// @ts-ignore
 			let httpResponseInstance = new HTTPResponse();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
+			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID);
 		}
 	});
 
 	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when the HTTP response headers argument type is not an object", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({ headers: 1234 });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse(1234);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({ headers: "This is not a header" });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse("This is not a header");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID);
+		}
+	});
+
+	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID when no HTTP response status code argument is passed", () => {
+		expect.assertions(1);
+		try {
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({});
+		} catch (error) {
+			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
 	});
 
 	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not a number", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: "200" });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, "200");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: ["200"] });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, ["200"]);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
@@ -132,7 +147,8 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not an integer", () => {
 		expect.assertions(1);
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 200.25 });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, 200.25);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
@@ -141,31 +157,46 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS error when the HTTP response status code argument is not between 100 and 599", () => {
 		expect.assertions(3);
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 99 });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({},  99 );
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 600 });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, 600 );
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 1000 });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, 1000 );
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
+		}
+	});
+
+	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when no HTTP response status message argument is passed", () => {
+		expect.assertions(1);
+		try {
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, 200 );
+		} catch (error) {
+			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
 	});
 
 	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when the HTTP response status message argument type is not a string", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 200, statusMessage: 200 });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, 200,  200 );
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 200, statusMessage: ["OK"] });
+			// @ts-ignore
+			let httpResponseInstance = new HTTPResponse({}, 200, ["OK"] );
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
@@ -174,12 +205,12 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID error when the HTTP response body argument type is not an object", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 200, statusMessage: "OK", body: 1234 });
+			let httpResponseInstance = new HTTPResponse({}, 200, "OK", 1234 );
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({ statusCode: 200, statusMessage: "OK", body: "This is not a body" });
+			let httpResponseInstance = new HTTPResponse({}, 200, "OK", "This is not a body" );
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID);
 		}
@@ -188,13 +219,13 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance should return an HTTPResponse instance when valid options are passed", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({ headers: { "Content-Type": "application/octet-stream" }, statusCode: 200, statusMessage: "OK" });
+			let httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" },  200,  "OK" );
 			expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
 		} catch (error) {
 			throw error; // No error should be catched
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({ headers: { "Content-Type": "application/octet-stream" }, statusCode: 200, statusMessage: "OK", body: Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING) });
+			let httpResponseInstance = new HTTPResponse( { "Content-Type": "application/octet-stream" },  200,  "OK", Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING) );
 			expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
 		} catch (error) {
 			throw error; // No error should be catched
@@ -674,7 +705,6 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-
 	test("An HTTP Client instance in the CANCELLING state should return the same Promise object that was returned on the first call to its cancelRequest(...) method after its cancelRequest(...) method is called again", async () => {
 		expect.assertions(7);
 		let httpClientInstance = null;
@@ -841,8 +871,7 @@ describe("HTTP client tests", () => {
 
 	test(`An HTTP Client instance should return a 200 status code, an "OK status message, an "application/json" content-type header, and a mathing JSON object when the correct JSON object is sent as the request body.`, async () => {
 		expect.assertions(8);
-		try
-		{
+		try {
 			let httpRequestOptions = {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -862,7 +891,6 @@ describe("HTTP client tests", () => {
 			throw error; // No error should be catched
 		}
 	});
-	
 
 	test(`An HTTP Client instance should return a 204 status code and a "No content" status message when a request to a URL that provides a response with no content is made.`, async () => {
 		expect.assertions(4);
