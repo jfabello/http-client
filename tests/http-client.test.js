@@ -13,7 +13,7 @@ const path = require("node:path");
 const { Worker } = require("node:worker_threads");
 const { beforeAll, describe, expect, test } = require("@jest/globals");
 const SimpleTimer = require("@jfabello/simple-timer");
-const { HTTPClient, HTTPResponse } = require("../src/http-client.js");
+const { HTTPClient, HTTPResponse } = require("../src/http-client-class.js");
 
 // Constants
 const PATTERN_STRING = "This is a pattern!";
