@@ -371,6 +371,7 @@ class HTTPClient {
 					// Parses the HTTP response body as JSON
 					let responseBodyJSON = null;
 					try {
+						// @ts-ignore
 						responseBodyJSON = JSON.parse(responseBodyBuffer.toString(responseContentTypeCharset));
 					} catch (error) {
 						this.#teardown(new errors.ERROR_HTTP_RESPONSE_BODY_NOT_PARSEABLE_AS_JSON());
@@ -513,7 +514,8 @@ class HTTPClient {
 	#convertRequestBodyToBuffer() {
 		// Converts the HTTP request body string to a Buffer object
 		if (typeof this.#requestBody === "string") {
-			return new Buffer.from(this.#requestBody, this.#requestBodyEncoding);
+			// @ts-ignore
+			return Buffer.from(this.#requestBody, this.#requestBodyEncoding);
 		}
 
 		// Converts the HTTP request body object to a Buffer object
@@ -542,6 +544,7 @@ class HTTPClient {
 	 */
 	#convertSystemErrorToStandardError(error) {
 		if ("code" in error) {
+			// @ts-ignore
 			return systemErrors.createErrorFromSystemErrorCode(error.code);
 		} else {
 			return new errors.ERROR_UNKNOWN();
@@ -550,7 +553,7 @@ class HTTPClient {
 
 	/**
 	 * Tears down the HTTP client
-	 * @param {Error} error An optional standard error or a system error.
+	 * @param {Error} [error=null] An optional standard error or a system error.
 	 */
 	#teardown(error = null) {
 		if (this.#teardownInitiated === true) return;
