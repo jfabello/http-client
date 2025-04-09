@@ -92,7 +92,7 @@ beforeAll(async () => {
 });
 
 describe("HTTP response tests", () => {
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when no arguments are passed to its constructor", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when no arguments are passed to its constructor", () => {
 		expect.assertions(1);
 		try {
 			// @ts-ignore
@@ -102,7 +102,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when the HTTP response headers argument type is not an object", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when the HTTP response headers argument type is not an object", () => {
 		expect.assertions(2);
 		try {
 			// @ts-ignore
@@ -118,7 +118,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID when no HTTP response status code argument is passed", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID when no HTTP response status code argument is passed", () => {
 		expect.assertions(1);
 		try {
 			// @ts-ignore
@@ -128,7 +128,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not a number", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not a number", () => {
 		expect.assertions(2);
 		try {
 			// @ts-ignore
@@ -144,7 +144,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not an integer", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not an integer", () => {
 		expect.assertions(1);
 		try {
 			// @ts-ignore
@@ -154,7 +154,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS error when the HTTP response status code argument is not between 100 and 599", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS error when the HTTP response status code argument is not between 100 and 599", () => {
 		expect.assertions(3);
 		try {
 			// @ts-ignore
@@ -176,7 +176,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when no HTTP response status message argument is passed", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when no HTTP response status message argument is passed", () => {
 		expect.assertions(1);
 		try {
 			// @ts-ignore
@@ -186,7 +186,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when the HTTP response status message argument type is not a string", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when the HTTP response status message argument type is not a string", () => {
 		expect.assertions(2);
 		try {
 			// @ts-ignore
@@ -202,7 +202,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should throw an ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID error when the HTTP response body argument type is not an object", () => {
+	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID error when the HTTP response body argument type is not an object", () => {
 		expect.assertions(2);
 		try {
 			let httpResponseInstance = new HTTPResponse({}, 200, "OK", 1234 );
@@ -216,7 +216,7 @@ describe("HTTP response tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Response instance should return an HTTPResponse instance when valid options are passed", () => {
+	test("An attempt to create an HTTP Response instance must return an HTTPResponse instance when valid options are passed", () => {
 		expect.assertions(2);
 		try {
 			let httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" },  200,  "OK" );
@@ -234,7 +234,7 @@ describe("HTTP response tests", () => {
 });
 
 describe("HTTP client tests", () => {
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is undefined", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is undefined", () => {
 		expect.assertions(1);
 		try {
 			let httpClientInstance = new HTTPClient();
@@ -243,7 +243,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is not a string or an instance of URL", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is not a string or an instance of URL", () => {
 		expect.assertions(3);
 		try {
 			let httpClientInstance = new HTTPClient(1234);
@@ -262,7 +262,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_URL_STRING_INVALID error when the URL option is a string with an invalid URL", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_STRING_INVALID error when the URL option is a string with an invalid URL", () => {
 		expect.assertions(1);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.an example.com/");
@@ -271,7 +271,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_URL_PROTOCOL_INVALID error when the URL option has an invalid protocol", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_PROTOCOL_INVALID error when the URL option has an invalid protocol", () => {
 		expect.assertions(1);
 		try {
 			let httpClientInstance = new HTTPClient("ftp://www.example.com/");
@@ -280,7 +280,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID error when the HTTP request method argument type is not a string", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID error when the HTTP request method argument type is not a string", () => {
 		expect.assertions(2);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { method: 1234 });
@@ -294,7 +294,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_METHOD_INVALID error when the HTTP request method argument is not a valid HTTP request method", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_METHOD_INVALID error when the HTTP request method argument is not a valid HTTP request method", () => {
 		expect.assertions(1);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { method: "GOT" });
@@ -303,7 +303,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_HEADERS_TYPE_INVALID error when the HTTP request headers type in the options argument is not an object", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_HEADERS_TYPE_INVALID error when the HTTP request headers type in the options argument is not an object", () => {
 		expect.assertions(2);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { headers: 1234 });
@@ -317,7 +317,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_REQUEST_TIMEOUT_TYPE_INVALID error when the HTTP request timeout in the options argument is not a number", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_REQUEST_TIMEOUT_TYPE_INVALID error when the HTTP request timeout in the options argument is not a number", () => {
 		expect.assertions(2);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: "1234" });
@@ -331,7 +331,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_REQUEST_TIMEOUT_TYPE_INVALID error when the HTTP request timeout in the options argument is not an integer", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_REQUEST_TIMEOUT_TYPE_INVALID error when the HTTP request timeout in the options argument is not an integer", () => {
 		expect.assertions(1);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: 1.25 });
@@ -340,7 +340,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_TIMEOUT_OUT_OF_BOUNDS error when the HTTP request timeout in the options argument is not a positive integer", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_TIMEOUT_OUT_OF_BOUNDS error when the HTTP request timeout in the options argument is not a positive integer", () => {
 		expect.assertions(3);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: 0 });
@@ -359,7 +359,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_BODY_TYPE_INVALID error when the HTTP request body in the options argument is not a string or an object", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_TYPE_INVALID error when the HTTP request body in the options argument is not a string or an object", () => {
 		expect.assertions(2);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: 1234 });
@@ -373,7 +373,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID error when the HTTP request body encoding in the options argument is not a string", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID error when the HTTP request body encoding in the options argument is not a string", () => {
 		expect.assertions(1);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: "This is a body", bodyEncoding: 1234 });
@@ -382,7 +382,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_HTTP_REQUEST_BODY_ENCODING_INVALID error when the HTTP request body encoding in the options argument is not a valid encoding", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_ENCODING_INVALID error when the HTTP request body encoding in the options argument is not a valid encoding", () => {
 		expect.assertions(1);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: "This is a body", bodyEncoding: "utf32" });
@@ -391,7 +391,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should throw an ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID error when the automatic JSON HTTP response parse option in the options argument is not a boolean", () => {
+	test("An attempt to create an HTTP Client instance must throw an ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID error when the automatic JSON HTTP response parse option in the options argument is not a boolean", () => {
 		expect.assertions(2);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { autoJSONResponseParse: 1234 });
@@ -405,7 +405,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An attempt to create an HTTP Client instance should return an HTTPClient instance when valid options are passed", () => {
+	test("An attempt to create an HTTP Client instance must return an HTTPClient instance when valid options are passed", () => {
 		expect.assertions(3);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/");
@@ -441,7 +441,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An HTTP Client instance should be in the CREATED state after its constructor is called", () => {
+	test("An HTTP Client instance must be in the CREATED state after its constructor is called", () => {
 		expect.assertions(3);
 		try {
 			let httpClientInstance = new HTTPClient("http://www.example.com/");
@@ -477,7 +477,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An HTTP Client instance should return a Promise object when its makeRequest(...) method is called and it is in the CREATED state", async () => {
+	test("An HTTP Client instance must return a Promise object when its makeRequest(...) method is called and it is in the CREATED state", async () => {
 		expect.assertions(2);
 		let httpClientInstance = new HTTPClient(httpTestServerBaseURL);
 		expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
@@ -486,7 +486,7 @@ describe("HTTP client tests", () => {
 		await httpClientInstancePromise;
 	});
 
-	test("An HTTP Client instance should be in the REQUESTING state after its makeRequest(...) method is called", async () => {
+	test("An HTTP Client instance must be in the REQUESTING state after its makeRequest(...) method is called", async () => {
 		expect.assertions(1);
 		let httpClientInstance = new HTTPClient(httpTestServerBaseURL);
 		let httpClientInstancePromise = httpClientInstance.makeRequest();
@@ -494,7 +494,7 @@ describe("HTTP client tests", () => {
 		await httpClientInstancePromise;
 	});
 
-	test("An HTTP Client instance in the REQUESTING state should return the same Promise object that was returned on the first call to its makeRequest(...) method after its makeRequest(...) method is called again", async () => {
+	test("An HTTP Client instance in the REQUESTING state must return the same Promise object that was returned on the first call to its makeRequest(...) method after its makeRequest(...) method is called again", async () => {
 		expect.assertions(2);
 		let httpClientInstance = new HTTPClient(httpTestServerBaseURL);
 		let httpClientInstancePromise = httpClientInstance.makeRequest();
@@ -503,7 +503,7 @@ describe("HTTP client tests", () => {
 		await httpClientInstancePromise;
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_BODY_OBJECT_NOT_SERIALIZABLE when its makeRequest(...) method is called and the HTTP request body object is not serializable", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_OBJECT_NOT_SERIALIZABLE when its makeRequest(...) method is called and the HTTP request body object is not serializable", async () => {
 		expect.assertions(3);
 		let httpClientInstance = null;
 		try {
@@ -528,7 +528,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has no request body, the server has not returned a response, and has its connection severed from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has no request body, the server has not returned a response, and has its connection severed from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -540,7 +540,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_BROKEN_PIPE error when the HTTP request has a request body, the server has not returned a response, and has its connection severed from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_BROKEN_PIPE error when the HTTP request has a request body, the server has not returned a response, and has its connection severed from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -557,7 +557,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_RESPONSE_TIMED_OUT error when the HTTP request has no request body, the server has not returned a response, and has the connection time out from the client side", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_RESPONSE_TIMED_OUT error when the HTTP request has no request body, the server has not returned a response, and has the connection time out from the client side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -569,7 +569,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has a request body, the server has not returned a response, and has the connection time out from the client side", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has a request body, the server has not returned a response, and has the connection time out from the client side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -587,7 +587,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has no request body, the server has not returned a response, and has the connection time out from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has no request body, the server has not returned a response, and has the connection time out from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -599,7 +599,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_BROKEN_PIPE error when the HTTP request has a request body, the server has not returned a response, and has the connection time out from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_BROKEN_PIPE error when the HTTP request has a request body, the server has not returned a response, and has the connection time out from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -616,7 +616,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has no request body, the server has returned a partial response, and has its connection severed from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has no request body, the server has returned a partial response, and has its connection severed from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -628,7 +628,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has a request body, the server has returned a partial response, and has its connection is severed from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has a request body, the server has returned a partial response, and has its connection is severed from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -645,7 +645,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_RESPONSE_TIMED_OUT error when the HTTP request has no request body, the server has returned a partial response, and has its connection time out from the client side", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_RESPONSE_TIMED_OUT error when the HTTP request has no request body, the server has returned a partial response, and has its connection time out from the client side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -657,7 +657,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_RESPONSE_TIMED_OUT error when the HTTP request has a request body, the server has returned a partial response, and has its connection time out from the client side", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_RESPONSE_TIMED_OUT error when the HTTP request has a request body, the server has returned a partial response, and has its connection time out from the client side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -675,7 +675,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has no request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has no request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -687,7 +687,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has a request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has a request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -705,7 +705,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance in the CANCELLING state should return the same Promise object that was returned on the first call to its cancelRequest(...) method after its cancelRequest(...) method is called again", async () => {
+	test("An HTTP Client instance in the CANCELLING state must return the same Promise object that was returned on the first call to its cancelRequest(...) method after its cancelRequest(...) method is called again", async () => {
 		expect.assertions(7);
 		let httpClientInstance = null;
 		let httpClientInstancePromise = null;
@@ -727,7 +727,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstanceCancelResult).toBe(true);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has no request body, the server has not returned a response, and it is cancelled", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has no request body, the server has not returned a response, and it is cancelled", async () => {
 		expect.assertions(4);
 		let httpClientInstance = null;
 		let httpClientInstancePromise = null;
@@ -747,7 +747,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstanceCancelResult).toBe(true);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has no request body, the server has returned a partial response, and it is cancelled", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has no request body, the server has returned a partial response, and it is cancelled", async () => {
 		expect.assertions(4);
 		let httpClientInstance = null;
 		let httpClientInstancePromise = null;
@@ -767,7 +767,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstanceCancelResult).toBe(true);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has a request body, the server has not returned a response, and it is cancelled", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has a request body, the server has not returned a response, and it is cancelled", async () => {
 		expect.assertions(4);
 		let httpClientInstance = null;
 		let httpClientInstancePromise = null;
@@ -792,7 +792,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstanceCancelResult).toBe(true);
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has a request body, the server has returned a partial response, and it is cancelled", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_CANCELLED error when the HTTP request has a request body, the server has returned a partial response, and it is cancelled", async () => {
 		expect.assertions(4);
 		let httpClientInstance = null;
 		let httpClientInstancePromise = null;
@@ -817,7 +817,7 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstanceCancelResult).toBe(true);
 	});
 
-	test(`An HTTP Client instance should return a 200 status code, an "OK" status message, an "application/octet-stream" content-type header, a "${PATTERN_SIZE}" content-length header, and a matching pattern when the correct pattern is sent as the request body.`, async () => {
+	test(`An HTTP Client instance must return a 200 status code, an "OK" status message, an "application/octet-stream" content-type header, a "${PATTERN_SIZE}" content-length header, and a matching pattern when the correct pattern is sent as the request body.`, async () => {
 		expect.assertions(10);
 		try {
 			let httpRequestOptions = {
@@ -842,7 +842,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test(`An HTTP Client instance should return a 200 status code, an "OK" status message, a "text/plain" content-type header, an appropriate content-length header, and a matching string when the correct string is sent as the request body.`, async () => {
+	test(`An HTTP Client instance must return a 200 status code, an "OK" status message, a "text/plain" content-type header, an appropriate content-length header, and a matching string when the correct string is sent as the request body.`, async () => {
 		expect.assertions(10);
 		try {
 			let httpRequestOptions = {
@@ -869,7 +869,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test(`An HTTP Client instance should return a 200 status code, an "OK status message, an "application/json" content-type header, and a mathing JSON object when the correct JSON object is sent as the request body.`, async () => {
+	test(`An HTTP Client instance must return a 200 status code, an "OK status message, an "application/json" content-type header, and a mathing JSON object when the correct JSON object is sent as the request body.`, async () => {
 		expect.assertions(8);
 		try {
 			let httpRequestOptions = {
@@ -892,7 +892,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test(`An HTTP Client instance should return a 204 status code and a "No content" status message when a request to a URL that provides a response with no content is made.`, async () => {
+	test(`An HTTP Client instance must return a 204 status code and a "No content" status message when a request to a URL that provides a response with no content is made.`, async () => {
 		expect.assertions(4);
 		try {
 			let httpClientInstance = new HTTPClient(silentResponseURL);
@@ -906,7 +906,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_MAKE_REQUEST_UNAVAILABLE error when the HTTP client is not is not in a state that allows making HTTP requests", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_MAKE_REQUEST_UNAVAILABLE error when the HTTP client is not is not in a state that allows making HTTP requests", async () => {
 		expect.assertions(21);
 
 		// Test for the FULFILLED state (4 assertions)
@@ -988,7 +988,7 @@ describe("HTTP client tests", () => {
 		}
 	});
 
-	test("An HTTP Client instance should throw an ERROR_HTTP_REQUEST_CANCEL_UNAVAILABLE error when the HTTP client is not is not in a state that allows requesting the HTTP request cancellation", async () => {
+	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_CANCEL_UNAVAILABLE error when the HTTP client is not is not in a state that allows requesting the HTTP request cancellation", async () => {
 		expect.assertions(13);
 
 		// Test for the CREATED state (2 assertions)
