@@ -15,7 +15,7 @@
 		"name": "Juan F. Abello",
 		"email": "juan@jfabello.com"
 	},
-	"main": "src/http-client.js",
+	"main": "src/http-client-class.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jfabello/http-client.git"
