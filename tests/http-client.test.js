@@ -237,6 +237,7 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is undefined", () => {
 		expect.assertions(1);
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient();
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
@@ -246,16 +247,19 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is not a string or an instance of URL", () => {
 		expect.assertions(3);
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient(1234);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
 		}
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient(["http://www.example.com/", "http://www.test.com/"]);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
 		}
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient(new Date());
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
@@ -283,11 +287,13 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID error when the HTTP request method argument type is not a string", () => {
 		expect.assertions(2);
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { method: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID);
 		}
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { method: ["GET"] });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID);
@@ -320,11 +326,13 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_REQUEST_TIMEOUT_TYPE_INVALID error when the HTTP request timeout in the options argument is not a number", () => {
 		expect.assertions(2);
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: "1234" });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_TYPE_INVALID);
 		}
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: [1234] });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_TYPE_INVALID);
@@ -376,6 +384,7 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID error when the HTTP request body encoding in the options argument is not a string", () => {
 		expect.assertions(1);
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: "This is a body", bodyEncoding: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID);
@@ -394,11 +403,13 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID error when the automatic JSON HTTP response parse option in the options argument is not a boolean", () => {
 		expect.assertions(2);
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { autoJSONResponseParse: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID);
 		}
 		try {
+			// @ts-ignore
 			let httpClientInstance = new HTTPClient("http://www.example.com/", { autoJSONResponseParse: "true" });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID);
