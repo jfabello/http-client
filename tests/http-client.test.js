@@ -12,7 +12,8 @@
 const path = require("node:path");
 const { Worker } = require("node:worker_threads");
 const { beforeAll, describe, expect, test, afterAll } = require("@jest/globals");
-const SimpleTimer = require("@jfabello/simple-timer");
+const { errors: systemErrors } = require("@jfabello/system-errors");
+const { SimpleTimer } = require("@jfabello/simple-timer");
 const { HTTPClient, HTTPResponse } = require("../src/http-client-class.js");
 
 // Constants
@@ -546,7 +547,7 @@ describe("HTTP client tests", () => {
 			httpClientInstance = new HTTPClient(silentRejectionURL);
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_NETWORK_CONNECTION_RESET);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_NETWORK_CONNECTION_RESET);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
@@ -563,7 +564,7 @@ describe("HTTP client tests", () => {
 			httpClientInstance = new HTTPClient(silentRejectionURL, httpRequestOptions);
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_BROKEN_PIPE);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_BROKEN_PIPE);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
@@ -605,7 +606,7 @@ describe("HTTP client tests", () => {
 			httpClientInstance = new HTTPClient(silentTimeoutURL);
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_NETWORK_CONNECTION_RESET);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_NETWORK_CONNECTION_RESET);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
@@ -622,7 +623,7 @@ describe("HTTP client tests", () => {
 			httpClientInstance = new HTTPClient(silentTimeoutURL, httpRequestOptions);
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_BROKEN_PIPE);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_BROKEN_PIPE);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
@@ -634,7 +635,7 @@ describe("HTTP client tests", () => {
 			httpClientInstance = new HTTPClient(noisyRejectionURL);
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_NETWORK_CONNECTION_RESET);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_NETWORK_CONNECTION_RESET);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
@@ -651,7 +652,7 @@ describe("HTTP client tests", () => {
 			httpClientInstance = new HTTPClient(noisyRejectionURL, httpRequestOptions);
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_NETWORK_CONNECTION_RESET);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_NETWORK_CONNECTION_RESET);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
@@ -686,19 +687,19 @@ describe("HTTP client tests", () => {
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has no request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has no request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
 			httpClientInstance = new HTTPClient(noisyTimeoutURL, { timeout: 2000 });
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_NETWORK_CONNECTION_RESET);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_NETWORK_CONNECTION_RESET);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
 
-	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_TIMED_OUT error when the HTTP request has a request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
+	test("An HTTP Client instance must throw an ERROR_NETWORK_CONNECTION_RESET error when the HTTP request has a request body, the server has returned a partial response, and has its connection time out from the server side", async () => {
 		expect.assertions(2);
 		let httpClientInstance = null;
 		try {
@@ -711,7 +712,7 @@ describe("HTTP client tests", () => {
 			httpClientInstance = new HTTPClient(noisyTimeoutURL, httpRequestOptions);
 			await httpClientInstance.makeRequest();
 		} catch (error) {
-			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_NETWORK_CONNECTION_RESET);
+			expect(error).toBeInstanceOf(systemErrors.ERROR_NETWORK_CONNECTION_RESET);
 		}
 		expect(httpClientInstance.state).toBe(HTTPClient.FAILED);
 	});
