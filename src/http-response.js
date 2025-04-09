@@ -9,7 +9,7 @@
 "use strict";
 
 // Errors
-const errors = require("./http-response-errors.js");
+const errors = require("./http-client-errors.js");
 
 /**
  * HTTP response class.
