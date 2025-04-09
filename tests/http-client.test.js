@@ -1,6 +1,6 @@
 /**
+ * Promise-based HTTP and HTTPS client for Node.js tests.
  * @module http-client-tests
- * @description Promise-based HTTP and HTTPS client for Node.js tests.
  * @license MIT
  * @author Juan F. Abello <juan@jfabello.com>
  */
@@ -11,7 +11,7 @@
 // Module imports
 const path = require("node:path");
 const { Worker } = require("node:worker_threads");
-const { describe, expect, test } = require("@jest/globals");
+const { beforeAll, describe, expect, test } = require("@jest/globals");
 const SimpleTimer = require("@jfabello/simple-timer");
 const { HTTPClient, HTTPResponse } = require("../src/http-client.js");
 

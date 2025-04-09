@@ -1,6 +1,6 @@
 /**
+ * Promise-based HTTP and HTTPS client for Node.js defaults.
  * @module http-client-defaults
- * @description Promise-based HTTP and HTTPS client for Node.js defaults.
  * @license MIT
  * @author Juan F. Abello <juan@jfabello.com>
  */

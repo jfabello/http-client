@@ -1,11 +1,10 @@
 /**
- * @module jfabello/http-client
- * @description Promise-based HTTP and HTTPS client for Node.js.
+ * Promise-based HTTP and HTTPS client for Node.js class.
+ * @module jfabello/http-client-class
  * @license MIT
  * @author Juan F. Abello <juan@jfabello.com>
  */
 
-// TODO LIST
 // TODO Remove the dependency on the "content-type" module.
 
 // Sets strict mode
@@ -25,6 +24,7 @@ const constants = require("./http-client-constants.js");
 const defaults = require("./http-client-defaults.js");
 
 // Errors
+// TODO: Simplify errors structure
 const commonErrors = require("@jfabello/common-errors");
 const systemErrors = require("@jfabello/system-errors");
 const httpClientErrors = require("./http-client-errors.js");
@@ -33,7 +33,8 @@ delete errors.createErrorFromSystemErrorCode;
 Object.freeze(errors);
 
 /**
- * @description HTTP client class.
+ * HTTP client class.
+ * @class HTTPClient
  */
 class HTTPClient {
 	// Private class constants
@@ -45,100 +46,100 @@ class HTTPClient {
 	static #FAILED = Symbol("FAILED");
 
 	// Private instance variables
-	#clientState = null;
-	#clientEmitter = null;
-	#clientRequest = null;
-	#clientResponse = null;
-	#clientTimeout = null;
-	#requestURL = null;
-	#requestOptions = {};
-	#requestBody = null;
-	#requestBodyEncoding = null;
-	#requestPromise = null;
-	#requestPromiseResolve = null;
-	#requestPromiseReject = null;
-	#cancelPromise = null;
-	#httpApi = null;
-	#httpResponse = null;
-	#systemErrors = [];
-	#teardownInitiated = false;
-	#requestTimer = null;
-	#responseTimer = null;
-	#autoJSONResponseParse = false;
+	/** @type {symbol} */ #clientState = null;
+	/** @type {EventEmitter} */ #clientEmitter = null;
+	/** @type {http.ClientRequest} */ #clientRequest = null;
+	/** @type {http.IncomingMessage} */ #clientResponse = null;
+	/** @type {number} */ #clientTimeout = null;
+	/** @type {URL} */ #requestURL = null;
+	/** @type {object} */ #requestOptions = {};
+	/** @type {string|object|Buffer} */ #requestBody = null;
+	/** @type {string} */ #requestBodyEncoding = null;
+	/** @type {Promise<HTTPResponse>} */ #requestPromise = null;
+	/** @type {Function} */ #requestPromiseResolve = null;
+	/** @type {Function} */ #requestPromiseReject = null;
+	/** @type {Promise<boolean>} */ #cancelPromise = null;
+	/** @type {object} */ #httpApi = null;
+	/** @type {HTTPResponse} */ #httpResponse = null;
+	/** @type {Error[]} */ #systemErrors = [];
+	/** @type {boolean} */ #teardownInitiated = false;
+	/** @type {NodeJS.Timeout} */ #requestTimer = null;
+	/** @type {NodeJS.Timeout} */ #responseTimer = null;
+	/** @type {boolean} */ #autoJSONResponseParse = false;
 
 	/**
+	 * Read-only property representing the CREATED state.
 	 * @static
-	 * @type {Symbol}
-	 * @description Read-only property representing the CREATED state.
+	 * @type {symbol}
 	 */
 	static get CREATED() {
 		return HTTPClient.#CREATED;
 	}
 
 	/**
+	 * Read-only property representing the REQUESTING state.
 	 * @static
-	 * @type {Symbol}
-	 * @description Read-only property representing the REQUESTING state.
+	 * @type {symbol}
 	 */
 	static get REQUESTING() {
 		return HTTPClient.#REQUESTING;
 	}
 
 	/**
+	 * Read-only property representing the CANCELLING state.
 	 * @static
-	 * @type {Symbol}
-	 * @description Read-only property representing the CANCELLING state.
+	 * @type {symbol}
 	 */
 	static get CANCELLING() {
 		return HTTPClient.#CANCELLING;
 	}
 
 	/**
+	 * Read-only property representing the FULFILLED state.
 	 * @static
-	 * @type {Symbol}
-	 * @description Read-only property representing the FULFILLED state.
+	 * @type {symbol}
 	 */
 	static get FULFILLED() {
 		return HTTPClient.#FULFILLED;
 	}
 
 	/**
+	 * Read-only property representing the CANCELLED state.
 	 * @static
-	 * @type {Symbol}
-	 * @description Read-only property representing the CANCELLED state.
+	 * @type {symbol}
 	 */
 	static get CANCELLED() {
 		return HTTPClient.#CANCELLED;
 	}
 
 	/**
+	 * Read-only property representing the FAILED state.
 	 * @static
-	 * @type {Symbol}
-	 * @description Read-only property representing the FAILED state.
+	 * @type {symbol}
 	 */
 	static get FAILED() {
 		return HTTPClient.#FAILED;
 	}
 
 	/**
+	 * Read-only property that contains the HTTP client error classes as properties.
 	 * @static
 	 * @type {object}
-	 * @description Read-only property that contains the HTTP client error classes as properties.
 	 */
 	static get errors() {
 		return errors;
 	}
 
 	/**
-	 * @type {Symbol}
-	 * @description The state of the HTTP client instance.
+	 * Read-only property that returns the state of the HTTP client instance.
+	 * @type {symbol}
 	 */
 	get state() {
 		return this.#clientState;
 	}
 
 	/**
-	 * @description Creates a new instance of the HTTP client.
+	 * Creates a new instance of the HTTP client.
 	 * @constructor
 	 * @param {string|URL} url The HTTP request URL
 	 * @param {object} [options] The HTTP client options object.
@@ -248,7 +249,7 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description Executes the HTTP request. If the request is in the REQUESTING state, it returns the existing promise.
+	 * Executes the HTTP request. If the request is in the REQUESTING state, it returns the existing promise.
 	 * @returns {Promise<HTTPResponse>} A promise that fulfills to an HTTP Response object if the HTTP request is performed succesfully, or rejects to an error if the HTTP request fails.
 	 * @throws {ERROR_HTTP_REQUEST_MAKE_REQUEST_UNAVAILABLE} If the HTTP client is not in a state that allows making HTTP requests.
 	 * @throws {ERROR_HTTP_REQUEST_TIMED_OUT} If the HTTP request times out while making the request.
@@ -402,8 +403,8 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description Requests the cancellation of the the HTTP request. If the request is in the CANCELLING state, it returns the existing promise.
-	 * @returns {Promise} A promise that fulfills to true when the HTTP request is successfully cancelled.
+	 * Requests the cancellation of the the HTTP request. If the request is in the CANCELLING state, it returns the existing promise.
+	 * @returns {Promise<boolean>} A promise that fulfills to true when the HTTP request is successfully cancelled.
 	 * @throws {ERROR_HTTP_REQUEST_CANCEL_UNAVAILABLE} If the HTTP client is not in a state that allows requesting the HTTP request cancellation.
 	 */
 	cancelRequest() {
@@ -431,8 +432,7 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description Sends the request body.
-	 * @private
+	 * Sends the request body.
 	 */
 	#sendRequestBody() {
 		// State variables
@@ -520,10 +520,9 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description converts the HTTP request body to a Buffer, if needed.
+	 * Converts the HTTP request body to a Buffer, if needed.
 	 * @returns {Buffer} The HTTP request body as a Buffer object.
 	 * @throws {ERROR_HTTP_REQUEST_BODY_OBJECT_NOT_SERIALIZABLE} If the HTTP request body object is not serializable.
-	 * @private
 	 */
 	#convertRequestBodyToBuffer() {
 		// Converts the HTTP request body string to a Buffer object
@@ -551,10 +550,9 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description Converts a system error to a standard error
+	 * Converts a system error to a standard error
 	 * @param {Error} error A system error.
 	 * @returns {Error} A standarized error, or ERROR_UNKNOWN if a passed error is not a system error.
-	 * @private
 	 */
 	#convertSystemErrorToStandardError(error) {
 		if ("code" in error) {
@@ -565,7 +563,7 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description Tears down the HTTP client
+	 * Tears down the HTTP client
 	 * @param {Error} error An optional standard error or a system error.
 	 */
 	#teardown(error = null) {
@@ -617,9 +615,8 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description Returns the HTTP response content type
+	 * Returns the HTTP response content type
 	 * @returns {string} The HTTP response content type, or null if the content type is not available.
-	 * @private
 	 */
 	#getResponseContentType() {
 		if (this.#clientResponse === null) {
@@ -650,9 +647,8 @@ class HTTPClient {
 	}
 
 	/**
-	 * @description Returns the HTTP response content type charset
+	 * Returns the HTTP response content type charset
 	 * @returns {string} The HTTP response content type charset, or null if the content type charset is not available.
-	 * @private
 	 */
 	#getResponseContentTypeCharset() {
 		if (this.#clientResponse === null) {

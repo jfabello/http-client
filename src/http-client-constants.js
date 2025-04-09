@@ -1,6 +1,6 @@
 /**
+ * Promise-based HTTP and HTTPS client for Node.js constants.
  * @module http-client-constants
- * @description Promise-based HTTP and HTTPS client for Node.js constants.
  * @license MIT
  * @author Juan F. Abello <juan@jfabello.com>
  */

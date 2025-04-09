@@ -1,6 +1,6 @@
 /**
+ * HTTP response class.
  * @module jfabello/http-response
- * @description HTTP response class.
  * @license MIT
  * @author Juan F. Abello <juan@jfabello.com>
  */
@@ -12,7 +12,8 @@
 const errors = require("./http-response-errors.js");
 
 /**
- * @description HTTP response class.
+ * HTTP response class.
+ * @class HTTPResponse
  * @property {object} headers A key-value pairs object that specifies the HTTP response headers.
  * @property {number} statusCode A positive integer that specifies the HTTP response status code.
  * @property {string} statusMessage A string that specifies the HTTP response status message.
@@ -29,7 +30,8 @@ class HTTPResponse {
 	}
 
 	/**
-	 * @description Creates a new instance of the HTTP response class.
+	 * Creates a new instance of the HTTP response class.
+	 * @constructor
 	 * @param {object} options The HTTP response options object.
 	 * @param {object} options.headers A key-value pairs object that specifies the HTTP response headers.
 	 * @param {number} options.statusCode A positive integer that specifies the HTTP response status code.
