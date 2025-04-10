@@ -15,6 +15,7 @@ const http = require("node:http");
 const https = require("node:https");
 const { EventEmitter } = require("node:events");
 const contentType = require("content-type");
+const { createErrorFromSystemErrorCode, errors: systemErrors } = require("@jfabello/system-errors");
 const HTTPResponse = require("./http-response.js");
 
 // Constants
@@ -24,13 +25,7 @@ const constants = require("./http-client-constants.js");
 const defaults = require("./http-client-defaults.js");
 
 // Errors
-// TODO: Simplify errors structure
-const commonErrors = require("@jfabello/common-errors");
-const systemErrors = require("@jfabello/system-errors");
-const httpClientErrors = require("./http-client-errors.js");
-const errors = Object.assign({}, httpClientErrors, systemErrors, commonErrors);
-delete errors.createErrorFromSystemErrorCode;
-Object.freeze(errors);
+const errors = require("./http-client-errors.js");
 
 /**
  * HTTP client class.
@@ -371,7 +366,7 @@ class HTTPClient {
 					// Parses the HTTP response body as JSON
 					let responseBodyJSON = null;
 					try {
-						// @ts-ignore
+						// @ts-expect-error
 						responseBodyJSON = JSON.parse(responseBodyBuffer.toString(responseContentTypeCharset));
 					} catch (error) {
 						this.#teardown(new errors.ERROR_HTTP_RESPONSE_BODY_NOT_PARSEABLE_AS_JSON());
@@ -514,7 +509,7 @@ class HTTPClient {
 	#convertRequestBodyToBuffer() {
 		// Converts the HTTP request body string to a Buffer object
 		if (typeof this.#requestBody === "string") {
-			// @ts-ignore
+			// @ts-expect-error
 			return Buffer.from(this.#requestBody, this.#requestBodyEncoding);
 		}
 
@@ -544,10 +539,10 @@ class HTTPClient {
 	 */
 	#convertSystemErrorToStandardError(error) {
 		if ("code" in error) {
-			// @ts-ignore
-			return systemErrors.createErrorFromSystemErrorCode(error.code);
+			// @ts-expect-error
+			return createErrorFromSystemErrorCode(error.code);
 		} else {
-			return new errors.ERROR_UNKNOWN();
+			return new errors.ERROR_UNKNOWN(error.message, error);
 		}
 	}
 

@@ -305,6 +305,20 @@ class ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID extends TypeError {
 	}
 }
 
+/**
+ * Thrown wen an unknown error occurs.
+ * @class ERROR_UNKNOWN
+ * @extends Error
+ */
+class ERROR_UNKNOWN extends Error {
+	constructor(extendedMessage, extendedError) {
+		super("An unknown error occurred.");
+		this.name = Object.getPrototypeOf(this).constructor.name;
+		if (typeof extendedMessage === "string") this.extendedMessage = extendedMessage;
+		if (typeof extendedError === "object" && extendedError !== null && extendedError instanceof Error) this.extendedError = extendedError;
+	}
+}
+
 const errors = {
 	ERROR_HTTP_REQUEST_URL_TYPE_INVALID,
 	ERROR_HTTP_REQUEST_URL_STRING_INVALID,
@@ -329,7 +343,8 @@ const errors = {
 	ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID,
 	ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS,
 	ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID,
-	ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID
+	ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID,
+	ERROR_UNKNOWN
 };
 
 Object.freeze(errors);
