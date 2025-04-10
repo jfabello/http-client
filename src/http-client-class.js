@@ -155,6 +155,7 @@ class HTTPClient {
 	 * @throws {ERROR_HTTP_REQUEST_BODY_TYPE_INVALID} If the HTTP request body option is not a string or Buffer object.
 	 * @throws {ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID} If the HTTP request body encoding option is not a string.
 	 * @throws {ERROR_HTTP_REQUEST_BODY_ENCODING_INVALID} If the HTTP body encoding option is not a valid encoding.
+	 * @throws {ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID} If the autoJSONResponseParse option is not a boolean.
 	 */
 	constructor(url, { method = "GET", headers = {}, timeout = defaults.DEFAULT_SOCKET_TIMEOUT, body, bodyEncoding = defaults.DEFAULT_BODY_ENCODING, autoJSONResponseParse = defaults.DEFAULT_AUTO_JSON_RESPONSE_PARSE } = {}) {
 		// Checks the passed HTTP request URL
@@ -248,9 +249,10 @@ class HTTPClient {
 	 * @returns {Promise<HTTPResponse>} A promise that fulfills to an HTTP Response object if the HTTP request is performed succesfully, or rejects to an error if the HTTP request fails.
 	 * @throws {ERROR_HTTP_REQUEST_MAKE_REQUEST_UNAVAILABLE} If the HTTP client is not in a state that allows making HTTP requests.
 	 * @throws {ERROR_HTTP_REQUEST_TIMED_OUT} If the HTTP request times out while making the request.
-	 * @throws {ERROR_HTTP_REQUEST_BODY_TYPE_INVALID} If the HTTP request body type is not supported
+	 * @throws {ERROR_HTTP_REQUEST_BODY_TYPE_INVALID} If the HTTP request body type is not supported.
 	 * @throws {ERROR_HTTP_RESPONSE_TIMED_OUT} If the HTTP request times out while waiting for a response.
 	 * @throws {ERROR_HTTP_REQUEST_CANCELLED} If the HTTP request is cancelled.
+	 * @throws {ERROR_HTTP_RESPONSE_BODY_NOT_PARSEABLE_AS_JSON} If the HTTP response body cannot be parsed as JSON.
 	 * @throws {ERROR_UNKNOWN} If an unknown error occurs.
 	 */
 	makeRequest() {
