@@ -188,6 +188,7 @@ Creates a new instance of the HTTP Client.
 - `ERROR_HTTP_REQUEST_BODY_TYPE_INVALID`: If the HTTP request body option is not a string or an object.
 - `ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID`: If the HTTP request body encoding option is not a string.
 - `ERROR_HTTP_REQUEST_BODY_ENCODING_INVALID`: If the HTTP body encoding option is not a valid encoding.
+- `ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID`: If the autoJSONResponseParse option is not a boolean.
 
 #### `makeRequest()`
 
@@ -203,6 +204,7 @@ A promise that fulfills to an HTTP Response object if the HTTP request is perfor
 - `ERROR_HTTP_REQUEST_TIMED_OUT`: If the HTTP request times out while making the request.
 - `ERROR_HTTP_REQUEST_BODY_TYPE_INVALID`: If the HTTP request body type is not supported.
 - `ERROR_HTTP_RESPONSE_TIMED_OUT`: If the HTTP request times out while waiting for a response.
+- `ERROR_HTTP_RESPONSE_BODY_NOT_PARSEABLE_AS_JSON`: If the HTTP response body cannot be parsed as JSON. 
 - `ERROR_HTTP_REQUEST_CANCELLED`: If the HTTP request is cancelled.
 - `ERROR_UNKNOWN`: If an unknown error occurs.
 
@@ -241,11 +243,10 @@ Creates a new instance of the HTTP response class.
 
 ##### Parameters
 
-- `options`: The HTTP response options object.
-	- `headers`: A key-value pairs object that specifies the HTTP response headers.
-	- `statusCode`: A positive integer that specifies the HTTP response status code.
-	- `statusMessage`: A string that specifies the HTTP response status message.
-	- `body`: An optional object parsed from JSON or a Buffer object that specifies the HTTP response body.
+- `headers`: A key-value pairs object that specifies the HTTP response headers.
+- `statusCode`: A positive integer that specifies the HTTP response status code.
+- `statusMessage`: A string that specifies the HTTP response status message.
+- `body`: An optional object parsed from JSON or a Buffer object that specifies the HTTP response body.
 
 ##### Throws
 
