@@ -159,19 +159,19 @@ describe("HTTP response tests", () => {
 		expect.assertions(3);
 		try {
 			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({},  99 );
+			let httpResponseInstance = new HTTPResponse({}, 99);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
 		try {
 			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 600 );
+			let httpResponseInstance = new HTTPResponse({}, 600);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
 		try {
 			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 1000 );
+			let httpResponseInstance = new HTTPResponse({}, 1000);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
@@ -181,7 +181,7 @@ describe("HTTP response tests", () => {
 		expect.assertions(1);
 		try {
 			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 200 );
+			let httpResponseInstance = new HTTPResponse({}, 200);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
@@ -191,13 +191,13 @@ describe("HTTP response tests", () => {
 		expect.assertions(2);
 		try {
 			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 200,  200 );
+			let httpResponseInstance = new HTTPResponse({}, 200, 200);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
 		try {
 			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 200, ["OK"] );
+			let httpResponseInstance = new HTTPResponse({}, 200, ["OK"]);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
@@ -206,12 +206,12 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID error when the HTTP response body argument type is not an object", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({}, 200, "OK", 1234 );
+			let httpResponseInstance = new HTTPResponse({}, 200, "OK", 1234);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({}, 200, "OK", "This is not a body" );
+			let httpResponseInstance = new HTTPResponse({}, 200, "OK", "This is not a body");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID);
 		}
@@ -220,13 +220,13 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must return an HTTPResponse instance when valid options are passed", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" },  200,  "OK" );
+			let httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" }, 200, "OK");
 			expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
 		} catch (error) {
 			throw error; // No error should be catched
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse( { "Content-Type": "application/octet-stream" },  200,  "OK", Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING) );
+			let httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" }, 200, "OK", Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING));
 			expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
 		} catch (error) {
 			throw error; // No error should be catched
