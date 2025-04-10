@@ -21,9 +21,10 @@ const errors = require("./http-client-errors.js");
  */
 class HTTPResponse {
 	/**
+	 * Read-only property that contains the HTTP response error classes as properties.
 	 * @static
+	 * @readonly
 	 * @type {object}
-	 * @description Read-only property that contains the HTTP response error classes as properties.
 	 */
 	static get errors() {
 		return errors;

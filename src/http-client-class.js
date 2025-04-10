@@ -65,6 +65,7 @@ class HTTPClient {
 	/**
 	 * Read-only property representing the CREATED state.
 	 * @static
+	 * @readonly
 	 * @type {symbol}
 	 */
 	static get CREATED() {
@@ -74,6 +75,7 @@ class HTTPClient {
 	/**
 	 * Read-only property representing the REQUESTING state.
 	 * @static
+	 * @readonly
 	 * @type {symbol}
 	 */
 	static get REQUESTING() {
@@ -83,6 +85,7 @@ class HTTPClient {
 	/**
 	 * Read-only property representing the CANCELLING state.
 	 * @static
+	 * @readonly
 	 * @type {symbol}
 	 */
 	static get CANCELLING() {
@@ -92,6 +95,7 @@ class HTTPClient {
 	/**
 	 * Read-only property representing the FULFILLED state.
 	 * @static
+	 * @readonly
 	 * @type {symbol}
 	 */
 	static get FULFILLED() {
@@ -101,6 +105,7 @@ class HTTPClient {
 	/**
 	 * Read-only property representing the CANCELLED state.
 	 * @static
+	 * @readonly
 	 * @type {symbol}
 	 */
 	static get CANCELLED() {
@@ -110,6 +115,7 @@ class HTTPClient {
 	/**
 	 * Read-only property representing the FAILED state.
 	 * @static
+	 * @readonly
 	 * @type {symbol}
 	 */
 	static get FAILED() {
@@ -119,6 +125,7 @@ class HTTPClient {
 	/**
 	 * Read-only property that contains the HTTP client error classes as properties.
 	 * @static
+	 * @readonly
 	 * @type {object}
 	 */
 	static get errors() {
@@ -127,6 +134,7 @@ class HTTPClient {
 
 	/**
 	 * Read-only property that returns the state of the HTTP client instance.
+	 * @readonly
 	 * @type {symbol}
 	 */
 	get state() {
