@@ -36,6 +36,28 @@ Key features:
 - [Contributing](#contributing)
 - [License](#license)
 
+## What is New
+
+### Version 2.0.0
+
+- `HTTPClient` is now an ES6 module. This provides better support for tools like ESLint 9 and a cleaner code syntax.
+
+### Version 1.2.0, 1.2.1, and 1.2.2
+
+- Code refactoring.
+
+### Version 1.1.0
+
+- Code refactoring.
+
+### Version 1.0.1
+
+- Added the `HEAD` method to the list of supported methods.
+
+### Version 1.0.0
+
+- Initial release.
+
 ## Installation
 
 You can install this module via `npm`:
@@ -51,7 +73,7 @@ To use the `http-client` module, first import it into your code and then create 
 ### Basic Usage
 
 ```javascript
-const { HTTPClient } = require("@jfabello/http-client");
+import { HTTPClient } from "@jfabello/http-client";
 
 async function someAsyncFunction() {
 	// Create a new HTTP Client instance
@@ -69,7 +91,7 @@ someAsyncFunction();
 ### Cancelling the Request
 
 ```javascript
-const { HTTPClient } = require("@jfabello/http-client");
+import { HTTPClient } from "@jfabello/http-client";
 
 async function someAsyncFunction() {
 	// Create a new HTTP Client instance
@@ -101,7 +123,7 @@ someAsyncFunction();
 ### Advanced Usage
 
 ```javascript
-const { HTTPClient } = require("@jfabello/http-client");
+import { HTTPClient } from "@jfabello/http-client";
 
 async function someAsyncFunction() {
 	// Create a new HTTP Client instance
