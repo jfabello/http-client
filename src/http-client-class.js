@@ -11,21 +11,21 @@
 "use strict";
 
 // Module imports
-const http = require("node:http");
-const https = require("node:https");
-const { EventEmitter } = require("node:events");
-const contentType = require("content-type");
-const { createErrorFromSystemErrorCode, errors: systemErrors } = require("@jfabello/system-errors");
-const HTTPResponse = require("./http-response.js");
+import http from "node:http";
+import https from "node:https";
+import { EventEmitter } from "node:events";
+import contentType from "content-type";
+import { createErrorFromSystemErrorCode } from "@jfabello/system-errors";
+import { HTTPResponse } from "./http-response.js";
 
 // Constants
-const constants = require("./http-client-constants.js");
+import { constants } from "./http-client-constants.js";
 
 // Defaults
-const defaults = require("./http-client-defaults.js");
+import { defaults } from "./http-client-defaults.js";
 
 // Errors
-const errors = require("./http-client-errors.js");
+import { errors } from "./http-client-errors.js";
 
 /**
  * HTTP client class.
@@ -178,7 +178,7 @@ class HTTPClient {
 		if (typeof url === "string") {
 			try {
 				this.#requestURL = new URL(url);
-			} catch (error) {
+			} catch {
 				throw new errors.ERROR_HTTP_REQUEST_URL_STRING_INVALID();
 			}
 		} else {
@@ -322,6 +322,7 @@ class HTTPClient {
 			this.#clientRequest.once("response", (response) => {
 				// HTTP response state variables
 				let responseBodyBuffer = null;
+				// eslint-disable-next-line no-unused-vars
 				let responseBodyStream = null; // For a future feature that allows streaming the HTTP response body
 				let responseBodyBufferSize = 0;
 				let responseBodyArrayOfBuffers = [];
@@ -378,7 +379,7 @@ class HTTPClient {
 					try {
 						// @ts-expect-error
 						responseBodyJSON = JSON.parse(responseBodyBuffer.toString(responseContentTypeCharset));
-					} catch (error) {
+					} catch {
 						this.#teardown(new errors.ERROR_HTTP_RESPONSE_BODY_NOT_PARSEABLE_AS_JSON());
 						return;
 					}
@@ -412,7 +413,7 @@ class HTTPClient {
 
 		this.#clientState = HTTPClient.#CANCELLING;
 
-		this.#cancelPromise = new Promise((resolve, reject) => {
+		this.#cancelPromise = new Promise((resolve) => {
 			this.#clientEmitter.once("httprequestcancelled", () => {
 				resolve(true);
 			});
@@ -436,7 +437,7 @@ class HTTPClient {
 		}, this.#clientTimeout);
 
 		// Processes the HTTP request "error" event
-		this.#clientRequest.once("error", (error) => {
+		this.#clientRequest.once("error", () => {
 			errorOccurred = true;
 		});
 
@@ -677,4 +678,4 @@ class HTTPClient {
 	}
 }
 
-module.exports = { HTTPClient, HTTPResponse };
+export { HTTPClient, HTTPResponse };

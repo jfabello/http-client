@@ -9,9 +9,9 @@
 "use strict";
 
 // Module imports
-const { isMainThread, parentPort } = require("node:worker_threads");
-const HTTPTestServer = require("@jfabello/http-test-server");
-const ConsoleLogger = require("@jfabello/log-to-console");
+import { isMainThread, parentPort } from "node:worker_threads";
+import { HTTPTestServer } from "@jfabello/http-test-server";
+import { ConsoleLogger } from "@jfabello/log-to-console";
 
 // Creates a new console logger instance
 const logToConsole = new ConsoleLogger(ConsoleLogger.INFO);

@@ -9,7 +9,7 @@
 "use strict";
 
 // Errors
-const errors = require("./http-client-errors.js");
+import { errors } from "./http-client-errors.js";
 
 /**
  * HTTP response class.
@@ -75,4 +75,4 @@ class HTTPResponse {
 	}
 }
 
-module.exports = HTTPResponse;
+export { HTTPResponse };

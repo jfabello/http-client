@@ -16,25 +16,29 @@
 		"email": "juan@jfabello.com"
 	},
 	"main": "src/http-client-class.js",
+	"type": "module",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jfabello/http-client.git"
 	},
 	"scripts": {
-		"test": "jest --watchAll --coverage"
+		"test": "node --experimental-vm-modules ./node_modules/.bin/jest --watchAll --coverage"
 	},
 	"dependencies": {
-		"@jfabello/system-errors": "^2.0.0",
+		"@jfabello/system-errors": "^3.0.0",
 		"content-type": "^1.0.0"
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.0.0",
 		"@jest/globals": "^29.0",
-		"@jfabello/http-test-server": "^0.3.0",
-		"@jfabello/log-to-console": "^1.0.0",
-		"@jfabello/simple-timer": "^2.0.0",
+		"@jfabello/http-test-server": "^0.4.0",
+		"@jfabello/log-to-console": "^2.0.0",
+		"@jfabello/simple-timer": "^3.0.0",
+		"eslint": "^9.0.0",
+		"globals": "^16.0.0",
 		"jest": "^29.0.0"
 	},
 	"engines": {
-		"node": ">=18"
+		"node": ">=20"
 	}
 }

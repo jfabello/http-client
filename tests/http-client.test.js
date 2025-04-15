@@ -9,14 +9,17 @@
 "use strict";
 
 // Module imports
-const path = require("node:path");
-const { Worker } = require("node:worker_threads");
-const { beforeAll, describe, expect, test, afterAll } = require("@jest/globals");
-const { errors: systemErrors } = require("@jfabello/system-errors");
-const { SimpleTimer } = require("@jfabello/simple-timer");
-const { HTTPClient, HTTPResponse } = require("../src/http-client-class.js");
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { Worker } from "node:worker_threads";
+import { beforeAll, describe, expect, test, afterAll } from "@jest/globals";
+import { errors as systemErrors } from "@jfabello/system-errors";
+import { SimpleTimer } from "@jfabello/simple-timer";
+import { HTTPClient, HTTPResponse } from "../src/http-client-class.js";
 
 // Constants
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const PATTERN_STRING = "This is a pattern!";
 const PATTERN_ENCODING = "utf8";
 const PATTERN_SIZE = 2 * 1000 * 1000; // 2 MB
@@ -54,7 +57,7 @@ beforeAll(async () => {
 	httpTestServerWorker = new Worker(path.join(__dirname, "../utils/http-test-server-worker.js"));
 
 	// Creates the HTTP Test Server worker exit promise
-	httpTestServerWorkerExitPromise = new Promise((resolve, reject) => {
+	httpTestServerWorkerExitPromise = new Promise((resolve) => {
 		httpTestServerWorker.once("exit", () => {
 			resolve();
 		});
@@ -96,8 +99,8 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when no arguments are passed to its constructor", () => {
 		expect.assertions(1);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse();
+			// @ts-expect-error
+			new HTTPResponse();
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID);
 		}
@@ -106,14 +109,14 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID error when the HTTP response headers argument type is not an object", () => {
 		expect.assertions(2);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse(1234);
+			// @ts-expect-error
+			new HTTPResponse(1234);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse("This is not a header");
+			// @ts-expect-error
+			new HTTPResponse("This is not a header");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_HEADERS_TYPE_INVALID);
 		}
@@ -122,8 +125,8 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID when no HTTP response status code argument is passed", () => {
 		expect.assertions(1);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({});
+			// @ts-expect-error
+			new HTTPResponse({});
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
@@ -132,14 +135,14 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not a number", () => {
 		expect.assertions(2);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, "200");
+			// @ts-expect-error
+			new HTTPResponse({}, "200");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, ["200"]);
+			// @ts-expect-error
+			new HTTPResponse({}, ["200"]);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
@@ -148,8 +151,8 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID error when the HTTP response status code argument type is not an integer", () => {
 		expect.assertions(1);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 200.25);
+			// @ts-expect-error
+			new HTTPResponse({}, 200.25);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_TYPE_INVALID);
 		}
@@ -158,20 +161,20 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS error when the HTTP response status code argument is not between 100 and 599", () => {
 		expect.assertions(3);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 99);
+			// @ts-expect-error
+			new HTTPResponse({}, 99);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 600);
+			// @ts-expect-error
+			new HTTPResponse({}, 600);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 1000);
+			// @ts-expect-error
+			new HTTPResponse({}, 1000);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_CODE_OUT_OF_BOUNDS);
 		}
@@ -180,8 +183,8 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when no HTTP response status message argument is passed", () => {
 		expect.assertions(1);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 200);
+			// @ts-expect-error
+			new HTTPResponse({}, 200);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
@@ -190,14 +193,14 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID error when the HTTP response status message argument type is not a string", () => {
 		expect.assertions(2);
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 200, 200);
+			// @ts-expect-error
+			new HTTPResponse({}, 200, 200);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpResponseInstance = new HTTPResponse({}, 200, ["OK"]);
+			// @ts-expect-error
+			new HTTPResponse({}, 200, ["OK"]);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_STATUS_MESSAGE_TYPE_INVALID);
 		}
@@ -206,12 +209,12 @@ describe("HTTP response tests", () => {
 	test("An attempt to create an HTTP Response instance must throw an ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID error when the HTTP response body argument type is not an object", () => {
 		expect.assertions(2);
 		try {
-			let httpResponseInstance = new HTTPResponse({}, 200, "OK", 1234);
+			new HTTPResponse({}, 200, "OK", 1234);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID);
 		}
 		try {
-			let httpResponseInstance = new HTTPResponse({}, 200, "OK", "This is not a body");
+			new HTTPResponse({}, 200, "OK", "This is not a body");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPResponse.errors.ERROR_HTTP_RESPONSE_BODY_TYPE_INVALID);
 		}
@@ -219,18 +222,11 @@ describe("HTTP response tests", () => {
 
 	test("An attempt to create an HTTP Response instance must return an HTTPResponse instance when valid options are passed", () => {
 		expect.assertions(2);
-		try {
-			let httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" }, 200, "OK");
-			expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
-		try {
-			let httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" }, 200, "OK", Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING));
-			expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
+		let httpResponseInstance = null;
+		httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" }, 200, "OK");
+		expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
+		httpResponseInstance = new HTTPResponse({ "Content-Type": "application/octet-stream" }, 200, "OK", Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING));
+		expect(httpResponseInstance).toBeInstanceOf(HTTPResponse);
 	});
 });
 
@@ -238,8 +234,8 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is undefined", () => {
 		expect.assertions(1);
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient();
+			// @ts-expect-error
+			new HTTPClient();
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
 		}
@@ -248,20 +244,20 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_TYPE_INVALID error when the URL option is not a string or an instance of URL", () => {
 		expect.assertions(3);
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient(1234);
+			// @ts-expect-error
+			new HTTPClient(1234);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient(["http://www.example.com/", "http://www.test.com/"]);
+			// @ts-expect-error
+			new HTTPClient(["http://www.example.com/", "http://www.test.com/"]);
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient(new Date());
+			// @ts-expect-error
+			new HTTPClient(new Date());
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_TYPE_INVALID);
 		}
@@ -270,7 +266,7 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_STRING_INVALID error when the URL option is a string with an invalid URL", () => {
 		expect.assertions(1);
 		try {
-			let httpClientInstance = new HTTPClient("http://www.an example.com/");
+			new HTTPClient("http://www.an example.com/");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_STRING_INVALID);
 		}
@@ -279,7 +275,7 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_URL_PROTOCOL_INVALID error when the URL option has an invalid protocol", () => {
 		expect.assertions(1);
 		try {
-			let httpClientInstance = new HTTPClient("ftp://www.example.com/");
+			new HTTPClient("ftp://www.example.com/");
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_URL_PROTOCOL_INVALID);
 		}
@@ -288,14 +284,14 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID error when the HTTP request method argument type is not a string", () => {
 		expect.assertions(2);
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { method: 1234 });
+			// @ts-expect-error
+			new HTTPClient("http://www.example.com/", { method: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { method: ["GET"] });
+			// @ts-expect-error
+			new HTTPClient("http://www.example.com/", { method: ["GET"] });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_METHOD_TYPE_INVALID);
 		}
@@ -304,7 +300,7 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_METHOD_INVALID error when the HTTP request method argument is not a valid HTTP request method", () => {
 		expect.assertions(1);
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { method: "GOT" });
+			new HTTPClient("http://www.example.com/", { method: "GOT" });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_METHOD_INVALID);
 		}
@@ -313,12 +309,12 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_HEADERS_TYPE_INVALID error when the HTTP request headers type in the options argument is not an object", () => {
 		expect.assertions(2);
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { headers: 1234 });
+			new HTTPClient("http://www.example.com/", { headers: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_HEADERS_TYPE_INVALID);
 		}
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { headers: "This is not a header" });
+			new HTTPClient("http://www.example.com/", { headers: "This is not a header" });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_HEADERS_TYPE_INVALID);
 		}
@@ -327,14 +323,14 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_REQUEST_TIMEOUT_TYPE_INVALID error when the HTTP request timeout in the options argument is not a number", () => {
 		expect.assertions(2);
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: "1234" });
+			// @ts-expect-error
+			new HTTPClient("http://www.example.com/", { timeout: "1234" });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: [1234] });
+			// @ts-expect-error
+			new HTTPClient("http://www.example.com/", { timeout: [1234] });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_TYPE_INVALID);
 		}
@@ -343,7 +339,7 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_REQUEST_TIMEOUT_TYPE_INVALID error when the HTTP request timeout in the options argument is not an integer", () => {
 		expect.assertions(1);
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: 1.25 });
+			new HTTPClient("http://www.example.com/", { timeout: 1.25 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_TYPE_INVALID);
 		}
@@ -352,17 +348,17 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_TIMEOUT_OUT_OF_BOUNDS error when the HTTP request timeout in the options argument is not a positive integer", () => {
 		expect.assertions(3);
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: 0 });
+			new HTTPClient("http://www.example.com/", { timeout: 0 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_OUT_OF_BOUNDS);
 		}
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: -10 });
+			new HTTPClient("http://www.example.com/", { timeout: -10 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_OUT_OF_BOUNDS);
 		}
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { timeout: -1000000 });
+			new HTTPClient("http://www.example.com/", { timeout: -1000000 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_TIMEOUT_OUT_OF_BOUNDS);
 		}
@@ -371,12 +367,12 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_TYPE_INVALID error when the HTTP request body in the options argument is not a string or an object", () => {
 		expect.assertions(2);
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: 1234 });
+			new HTTPClient("http://www.example.com/", { body: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_BODY_TYPE_INVALID);
 		}
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: true });
+			new HTTPClient("http://www.example.com/", { body: true });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_BODY_TYPE_INVALID);
 		}
@@ -385,8 +381,8 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID error when the HTTP request body encoding in the options argument is not a string", () => {
 		expect.assertions(1);
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: "This is a body", bodyEncoding: 1234 });
+			// @ts-expect-error
+			new HTTPClient("http://www.example.com/", { body: "This is a body", bodyEncoding: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_BODY_ENCODING_TYPE_INVALID);
 		}
@@ -395,7 +391,7 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_HTTP_REQUEST_BODY_ENCODING_INVALID error when the HTTP request body encoding in the options argument is not a valid encoding", () => {
 		expect.assertions(1);
 		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { body: "This is a body", bodyEncoding: "utf32" });
+			new HTTPClient("http://www.example.com/", { body: "This is a body", bodyEncoding: "utf32" });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_HTTP_REQUEST_BODY_ENCODING_INVALID);
 		}
@@ -404,14 +400,14 @@ describe("HTTP client tests", () => {
 	test("An attempt to create an HTTP Client instance must throw an ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID error when the automatic JSON HTTP response parse option in the options argument is not a boolean", () => {
 		expect.assertions(2);
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { autoJSONResponseParse: 1234 });
+			// @ts-expect-error
+			new HTTPClient("http://www.example.com/", { autoJSONResponseParse: 1234 });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID);
 		}
 		try {
-			// @ts-ignore
-			let httpClientInstance = new HTTPClient("http://www.example.com/", { autoJSONResponseParse: "true" });
+			// @ts-expect-error
+			new HTTPClient("http://www.example.com/", { autoJSONResponseParse: "true" });
 		} catch (error) {
 			expect(error).toBeInstanceOf(HTTPClient.errors.ERROR_AUTO_JSON_RESPONSE_PARSE_OPTION_TYPE_INVALID);
 		}
@@ -419,74 +415,58 @@ describe("HTTP client tests", () => {
 
 	test("An attempt to create an HTTP Client instance must return an HTTPClient instance when valid options are passed", () => {
 		expect.assertions(3);
-		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/");
-			expect(httpClientInstance).toBeInstanceOf(HTTPClient);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
-		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", {
-				method: "POST",
-				timeout: 60 * 1000,
-				body: "This is a body",
-				bodyEncoding: "utf8"
-			});
-			expect(httpClientInstance).toBeInstanceOf(HTTPClient);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
-		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/api/v1/createuser", {
-				method: "POST",
-				headers: {
-					"API-Key": "cHakuK4TrOs3NLxlsltR",
-					"Accept": "application/json",
-					"Content-Type": "application/json"
-				},
-				timeout: 60 * 1000,
-				body: JSON_OBJECT
-			});
-			expect(httpClientInstance).toBeInstanceOf(HTTPClient);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
+
+		let httpClientInstance = null;
+		httpClientInstance = new HTTPClient("http://www.example.com/");
+		expect(httpClientInstance).toBeInstanceOf(HTTPClient);
+
+		httpClientInstance = new HTTPClient("http://www.example.com/", {
+			method: "POST",
+			timeout: 60 * 1000,
+			body: "This is a body",
+			bodyEncoding: "utf8"
+		});
+		expect(httpClientInstance).toBeInstanceOf(HTTPClient);
+
+		httpClientInstance = new HTTPClient("http://www.example.com/api/v1/createuser", {
+			method: "POST",
+			headers: {
+				"API-Key": "cHakuK4TrOs3NLxlsltR",
+				"Accept": "application/json",
+				"Content-Type": "application/json"
+			},
+			timeout: 60 * 1000,
+			body: JSON_OBJECT
+		});
+		expect(httpClientInstance).toBeInstanceOf(HTTPClient);
 	});
 
 	test("An HTTP Client instance must be in the CREATED state after its constructor is called", () => {
 		expect.assertions(3);
-		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/");
-			expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
-		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/", {
-				method: "POST",
-				timeout: 60 * 1000,
-				body: "This is a body",
-				bodyEncoding: "utf8"
-			});
-			expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
-		try {
-			let httpClientInstance = new HTTPClient("http://www.example.com/api/v1/createuser", {
-				method: "POST",
-				headers: {
-					"API-Key": "cHakuK4TrOs3NLxlsltR",
-					"Accept": "application/json",
-					"Content-Type": "application/json"
-				},
-				timeout: 60 * 1000,
-				body: JSON_OBJECT
-			});
-			expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
+		let httpClientInstance = null;
+
+		httpClientInstance = new HTTPClient("http://www.example.com/");
+		expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
+
+		httpClientInstance = new HTTPClient("http://www.example.com/", {
+			method: "POST",
+			timeout: 60 * 1000,
+			body: "This is a body",
+			bodyEncoding: "utf8"
+		});
+		expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
+
+		httpClientInstance = new HTTPClient("http://www.example.com/api/v1/createuser", {
+			method: "POST",
+			headers: {
+				"API-Key": "cHakuK4TrOs3NLxlsltR",
+				"Accept": "application/json",
+				"Content-Type": "application/json"
+			},
+			timeout: 60 * 1000,
+			body: JSON_OBJECT
+		});
+		expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
 	});
 
 	test("An HTTP Client instance must return a Promise object when its makeRequest(...) method is called and it is in the CREATED state", async () => {
@@ -831,91 +811,75 @@ describe("HTTP client tests", () => {
 
 	test(`An HTTP Client instance must return a 200 status code, an "OK" status message, an "application/octet-stream" content-type header, a "${PATTERN_SIZE}" content-length header, and a matching pattern when the correct pattern is sent as the request body.`, async () => {
 		expect.assertions(10);
-		try {
-			let httpRequestOptions = {
-				method: "POST",
-				headers: { "Content-Type": "application/octet-stream", "Content-Length": PATTERN_SIZE },
-				body: Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING)
-			};
-			let httpClientInstance = new HTTPClient(checkPatternURL, httpRequestOptions);
-			let httpClientResponse = await httpClientInstance.makeRequest();
-			expect(httpClientResponse.statusCode).toBe(200);
-			expect(httpClientResponse.statusMessage.toUpperCase()).toBe("OK");
-			expect("content-type" in httpClientResponse.headers).toBe(true);
-			expect(httpClientResponse.headers["content-type"].toLowerCase()).toBe("application/octet-stream");
-			expect("content-length" in httpClientResponse.headers).toBe(true);
-			expect(httpClientResponse.headers["content-length"]).toBe(`${PATTERN_SIZE}`);
-			expect("body" in httpClientResponse).toBe(true);
-			expect(httpClientResponse.body.length).toBe(PATTERN_SIZE);
-			expect(Buffer.compare(httpRequestOptions.body, httpClientResponse.body)).toBe(0);
-			expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
+		let httpRequestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/octet-stream", "Content-Length": PATTERN_SIZE },
+			body: Buffer.alloc(PATTERN_SIZE, PATTERN_STRING, PATTERN_ENCODING)
+		};
+		let httpClientInstance = new HTTPClient(checkPatternURL, httpRequestOptions);
+		let httpClientResponse = await httpClientInstance.makeRequest();
+		expect(httpClientResponse.statusCode).toBe(200);
+		expect(httpClientResponse.statusMessage.toUpperCase()).toBe("OK");
+		expect("content-type" in httpClientResponse.headers).toBe(true);
+		expect(httpClientResponse.headers["content-type"].toLowerCase()).toBe("application/octet-stream");
+		expect("content-length" in httpClientResponse.headers).toBe(true);
+		expect(httpClientResponse.headers["content-length"]).toBe(`${PATTERN_SIZE}`);
+		expect("body" in httpClientResponse).toBe(true);
+		expect(httpClientResponse.body.length).toBe(PATTERN_SIZE);
+		expect(Buffer.compare(httpRequestOptions.body, httpClientResponse.body)).toBe(0);
+		expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
 	});
 
 	test(`An HTTP Client instance must return a 200 status code, an "OK" status message, a "text/plain" content-type header, an appropriate content-length header, and a matching string when the correct string is sent as the request body.`, async () => {
 		expect.assertions(10);
-		try {
-			let httpRequestOptions = {
-				method: "POST",
-				headers: { "Content-Type": "text/plain" },
-				body: PATTERN_STRING.repeat(PATTERN_STRING_REPEAT),
-				bodyEncoding: PATTERN_ENCODING
-			};
-			let httpClientInstance = new HTTPClient(checkStringURL, httpRequestOptions);
-			let httpClientResponse = await httpClientInstance.makeRequest();
-			let httpClientBodyBuffer = Buffer.from(PATTERN_STRING.repeat(PATTERN_STRING_REPEAT), PATTERN_ENCODING);
-			expect(httpClientResponse.statusCode).toBe(200);
-			expect(httpClientResponse.statusMessage.toUpperCase()).toBe("OK");
-			expect("content-type" in httpClientResponse.headers).toBe(true);
-			expect(httpClientResponse.headers["content-type"].toLowerCase()).toBe("text/plain");
-			expect("content-length" in httpClientResponse.headers).toBe(true);
-			expect(httpClientResponse.headers["content-length"]).toBe(`${httpClientBodyBuffer.length}`);
-			expect("body" in httpClientResponse).toBe(true);
-			expect(httpClientResponse.body.length).toBe(httpClientBodyBuffer.length);
-			expect(Buffer.compare(httpClientBodyBuffer, httpClientResponse.body)).toBe(0);
-			expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
+		let httpRequestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "text/plain" },
+			body: PATTERN_STRING.repeat(PATTERN_STRING_REPEAT),
+			bodyEncoding: PATTERN_ENCODING
+		};
+		let httpClientInstance = new HTTPClient(checkStringURL, httpRequestOptions);
+		let httpClientResponse = await httpClientInstance.makeRequest();
+		let httpClientBodyBuffer = Buffer.from(PATTERN_STRING.repeat(PATTERN_STRING_REPEAT), PATTERN_ENCODING);
+		expect(httpClientResponse.statusCode).toBe(200);
+		expect(httpClientResponse.statusMessage.toUpperCase()).toBe("OK");
+		expect("content-type" in httpClientResponse.headers).toBe(true);
+		expect(httpClientResponse.headers["content-type"].toLowerCase()).toBe("text/plain");
+		expect("content-length" in httpClientResponse.headers).toBe(true);
+		expect(httpClientResponse.headers["content-length"]).toBe(`${httpClientBodyBuffer.length}`);
+		expect("body" in httpClientResponse).toBe(true);
+		expect(httpClientResponse.body.length).toBe(httpClientBodyBuffer.length);
+		expect(Buffer.compare(httpClientBodyBuffer, httpClientResponse.body)).toBe(0);
+		expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
 	});
 
 	test(`An HTTP Client instance must return a 200 status code, an "OK status message, an "application/json" content-type header, and a mathing JSON object when the correct JSON object is sent as the request body.`, async () => {
 		expect.assertions(8);
-		try {
-			let httpRequestOptions = {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON_OBJECT
-			};
-			let httpClientInstance = new HTTPClient(checkJSONURL, httpRequestOptions);
-			let httpClientResponse = await httpClientInstance.makeRequest();
-			expect(httpClientResponse.statusCode).toBe(200);
-			expect(httpClientResponse.statusMessage.toUpperCase()).toBe("OK");
-			expect("content-type" in httpClientResponse.headers).toBe(true);
-			expect(httpClientResponse.headers["content-type"].toLowerCase()).toBe("application/json");
-			expect("body" in httpClientResponse).toBe(true);
-			expect(typeof httpClientResponse.body).toBe("object");
-			expect(httpClientResponse.body).toStrictEqual(JSON_OBJECT);
-			expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
+		let httpRequestOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON_OBJECT
+		};
+		let httpClientInstance = new HTTPClient(checkJSONURL, httpRequestOptions);
+		let httpClientResponse = await httpClientInstance.makeRequest();
+		expect(httpClientResponse.statusCode).toBe(200);
+		expect(httpClientResponse.statusMessage.toUpperCase()).toBe("OK");
+		expect("content-type" in httpClientResponse.headers).toBe(true);
+		expect(httpClientResponse.headers["content-type"].toLowerCase()).toBe("application/json");
+		expect("body" in httpClientResponse).toBe(true);
+		expect(typeof httpClientResponse.body).toBe("object");
+		expect(httpClientResponse.body).toStrictEqual(JSON_OBJECT);
+		expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
 	});
 
 	test(`An HTTP Client instance must return a 204 status code and a "No content" status message when a request to a URL that provides a response with no content is made.`, async () => {
 		expect.assertions(4);
-		try {
-			let httpClientInstance = new HTTPClient(silentResponseURL);
-			let httpClientResponse = await httpClientInstance.makeRequest();
-			expect(httpClientResponse.statusCode).toBe(204);
-			expect(httpClientResponse.statusMessage.toUpperCase()).toBe("NO CONTENT");
-			expect("body" in httpClientResponse).toBe(false);
-			expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
-		} catch (error) {
-			throw error; // No error should be catched
-		}
+		let httpClientInstance = new HTTPClient(silentResponseURL);
+		let httpClientResponse = await httpClientInstance.makeRequest();
+		expect(httpClientResponse.statusCode).toBe(204);
+		expect(httpClientResponse.statusMessage.toUpperCase()).toBe("NO CONTENT");
+		expect("body" in httpClientResponse).toBe(false);
+		expect(httpClientInstance.state).toBe(HTTPClient.FULFILLED);
 	});
 
 	test("An HTTP Client instance must throw an ERROR_HTTP_REQUEST_MAKE_REQUEST_UNAVAILABLE error when the HTTP client is not is not in a state that allows making HTTP requests", async () => {
@@ -938,13 +902,12 @@ describe("HTTP client tests", () => {
 		try {
 			let httpClientInstance = null;
 			let httpClientInstancePromise = null;
-			let httpClientInstanceCancelPromise = null;
 			try {
 				httpClientInstance = new HTTPClient(httpTestServerBaseURL);
 				expect(httpClientInstance.state).toBe(HTTPClient.CREATED);
 				httpClientInstancePromise = httpClientInstance.makeRequest();
 				expect(httpClientInstance.state).toBe(HTTPClient.REQUESTING);
-				httpClientInstanceCancelPromise = httpClientInstance.cancelRequest();
+				httpClientInstance.cancelRequest();
 				expect(httpClientInstance.state).toBe(HTTPClient.CANCELLING);
 				httpClientInstance.makeRequest();
 			} catch (error) {

@@ -16,4 +16,4 @@ defaults.DEFAULT_AUTO_JSON_RESPONSE_PARSE = true;
 
 Object.freeze(defaults);
 
-module.exports = defaults;
+export { defaults };
