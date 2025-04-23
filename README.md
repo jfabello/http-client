@@ -14,6 +14,12 @@ Key features:
 
 ## Table of Contents
 
+- [What is New](#what-is-new)
+  - [Version 2.0.0](#version-200)
+  - [Version 1.2.0, 1.2.1, and 1.2.2](#version-120-121-and-122)
+  - [Version 1.1.0](#version-110)
+  - [Version 1.0.1](#version-101)
+  - [Version 1.0.0](#version-100)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Basic Usage](#basic-usage)
@@ -75,17 +81,13 @@ To use the `http-client` module, first import it into your code and then create 
 ```javascript
 import { HTTPClient } from "@jfabello/http-client";
 
-async function someAsyncFunction() {
-	// Create a new HTTP Client instance
-	let httpClient = new HTTPClient("https://www.example.com/");
+// Create a new HTTP Client instance
+let httpClient = new HTTPClient("https://www.example.com/");
 
-	// Make the HTTP request
-	let httpClientResponse = await httpClient.makeRequest();
+// Make the HTTP request
+let httpClientResponse = await httpClient.makeRequest();
 
-	console.log(`HTTP server response: ${httpClientResponse.statusCode}`);
-}
-
-someAsyncFunction();
+console.log(`HTTP server response: ${httpClientResponse.statusCode}`);
 ```
 
 ### Cancelling the Request
@@ -93,31 +95,27 @@ someAsyncFunction();
 ```javascript
 import { HTTPClient } from "@jfabello/http-client";
 
-async function someAsyncFunction() {
-	// Create a new HTTP Client instance
-	let httpClient = new HTTPClient("https://www.example.com/");
+// Create a new HTTP Client instance
+let httpClient = new HTTPClient("https://www.example.com/");
 
-	// Make the HTTP request
-	let httpClientPromise = httpClient.makeRequest();
+// Make the HTTP request
+let httpClientPromise = httpClient.makeRequest();
 
-	// Do something else before the HTTP request is fulfilled...
+// Do something else before the HTTP request is fulfilled...
 
-	// Cancel the HTTP request before it is fulfilled
-	httpClient.cancelRequest();
+// Cancel the HTTP request before it is fulfilled
+httpClient.cancelRequest();
 
-	// Wait for the HTTP request to be cancelled
-	try {
-		await httpClientPromise;
-	} catch (error) {
-		if (error instanceof HTTPClient.errors.ERROR_HTTP_REQUEST_CANCELLED === true) {
-			console.log("The HTTP request was cancelled");
-		} else {
-			console.error("An unkown error has occurred");
-		}
+// Wait for the HTTP request to be cancelled
+try {
+	await httpClientPromise;
+} catch (error) {
+	if (error instanceof HTTPClient.errors.ERROR_HTTP_REQUEST_CANCELLED === true) {
+		console.log("The HTTP request was cancelled");
+	} else {
+		console.error("An unkown error has occurred");
 	}
 }
-
-someAsyncFunction();
 ```
 
 ### Advanced Usage
@@ -125,33 +123,29 @@ someAsyncFunction();
 ```javascript
 import { HTTPClient } from "@jfabello/http-client";
 
-async function someAsyncFunction() {
-	// Create a new HTTP Client instance
-	let httpClient = new HTTPClient("http://www.example.com/api/v1/createuser", {
-		method: "POST",
-		headers: {
-			"API-Key": "cHakuK4TrOs3NLxlsltR",
-			"Accept": "application/json",
-			"Content-Type": "application/json"
-		},
-		timeout: 60 * 1000,
-		body: {
-			firstName: "John",
-			lastName: "Doe",
-			username: "jdoe",
-			email: "jdoe@example.com"
-		}
-	});
-
-	// Make the HTTP request
-	let httpClientResponse = await httpClient.makeRequest();
-
-	if (httpClientResponse.statusCode === 200 && "result" in httpClientResponse.body) {
-		console.log(`User created: ${httpClientResponse.body.result}`);
+// Create a new HTTP Client instance
+let httpClient = new HTTPClient("http://www.example.com/api/v1/createuser", {
+	method: "POST",
+	headers: {
+		"API-Key": "cHakuK4TrOs3NLxlsltR",
+		"Accept": "application/json",
+		"Content-Type": "application/json"
+	},
+	timeout: 60 * 1000,
+	body: {
+		firstName: "John",
+		lastName: "Doe",
+		username: "jdoe",
+		email: "jdoe@example.com"
 	}
-}
+});
 
-someAsyncFunction();
+// Make the HTTP request
+let httpClientResponse = await httpClient.makeRequest();
+
+if (httpClientResponse.statusCode === 200 && "result" in httpClientResponse.body) {
+	console.log(`User created: ${httpClientResponse.body.result}`);
+}
 ```
 
 ## HTTP Client States
