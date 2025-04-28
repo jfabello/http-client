@@ -1,6 +1,6 @@
 {
 	"name": "@jfabello/http-client",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Promise-based HTTP and HTTPS client for Node.js.",
 	"keywords": [
 		"http",
